@@ -12,7 +12,7 @@ cfserver.use(cors())
 cfserver.use(express.json()) 
 cfserver.use(userRouter)
 cfserver.use(adminRouter)
-
+cfserver.use('/uploads', express.static('./uploads'))
 
 const PORT= 3000 || process.env.PORT 
 

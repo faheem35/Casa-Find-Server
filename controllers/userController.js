@@ -66,3 +66,16 @@ exports.loginController = async (req,res)=>{
 
 
 
+exports.getBookmarkedProperties = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const user = await users.findById(userId).populate('bookmarks');
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user.bookmarks); // return full property objects
+  } catch (err) {
+    console.error("Error fetching bookmarks:", err);
+    res.status(500).json({ message: "Failed to fetch bookmarks" });
+  }
+};
