@@ -40,6 +40,12 @@ const userSchema= new mongoose.Schema({
   password: { type:String, required:true },
   profilepic: { type:String },
   isAdmin: { type:Boolean, default:false },
+  
+    status:{
+        type:String,
+        enum:['active','inactive','blocked','unBlock'],
+        default:'active'
+    },
 
   bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'properties' }]  
 });

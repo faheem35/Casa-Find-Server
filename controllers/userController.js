@@ -42,7 +42,14 @@ exports.loginController = async (req,res)=>{
                     const existingUser= await users.findOne({email,password})
 
                      if (!existingUser) {
-            return res.status(400).json({ message: "User not found" });
+            return res.status(401).json({ message: "User not found or incorrect credentials" });
+
+        }
+
+
+        // Check if the user is inactive
+        if (existingUser.status === 'inactive') {
+            return res.status(403).json({ message: "User is blocked by admin" });
         }
 
          if (existingUser.isAdmin) {
